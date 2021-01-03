@@ -7,9 +7,9 @@
 #      schema: schema_srcrud
 spring:
   r2dbc:
-    url: "r2dbc:pool:mysql://localhost:3306/rincewind"
-    username: user
-    password: password
+    url: "r2dbc:pool:mysql://localhost:3306/demo"
+    username: demo
+    password: 123456
 
 logging:
   level:

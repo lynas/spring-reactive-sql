@@ -1,9 +1,11 @@
-- This project demonostrate how to create a reactive web application that connects mysql/postgress sql db with reactive r2dbc driver
+- This project demonstrate how to create a reactive web application that connects mysql/postgres sql db with reactive
+  r2dbc driver
 - This project was tested with mysql 8 and postgres 13.1
 
 ## How to Run
+
 - For mysql change db config in application.yml
-- For postgres comment/uncommnet follwoing in build.gradle
+- For postgres comment/uncomment following in build.gradle
 
 ```
     runtimeOnly("io.r2dbc:r2dbc-postgresql")
@@ -13,7 +15,7 @@
 //    runtimeOnly("mysql:mysql-connector-java")
 ```
 
-- For postgres comment/uncommnet follwoing in application.yml and update db config
+- For postgres comment/uncomment following in application.yml and update db config
 
 ```
 spring:
@@ -25,9 +27,9 @@ spring:
       schema: schema_srcrud
 #spring:
 #  r2dbc:
-#    url: "r2dbc:pool:mysql://localhost:3306/rincewind"
-#    username: user
-#    password: password
+#    url: "r2dbc:pool:mysql://localhost:3306/demo"
+#    username: demo
+#    password: 123456
 
 ```
 
