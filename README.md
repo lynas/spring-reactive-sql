@@ -61,3 +61,13 @@ name text
 2021-01-03 15:58:34.144 DEBUG 5096 --- [actor-tcp-nio-2] d.m.r.mysql.client.ReactorNettyClient    : Response: SyntheticMetadataMessage{completed=false, messages=[DefinitionMetadataMessage{database='rincewind', table='c' (origin:'customer'), column='id' (origin:'id'), collationId=63, size=20, type=8, definitions=4203, decimals=0}, DefinitionMetadataMessage{database='rincewind', table='c' (origin:'customer'), column='name' (origin:'name'), collationId=45, size=262140, type=252, definitions=10, decimals=0}], eof=null}
 2021-01-03 15:58:34.144 DEBUG 5096 --- [actor-tcp-nio-2] d.m.r.mysql.client.ReactorNettyClient    : Response: RowMessage(encoded)
 ```
+
+### CURL sample request response
+
+```
+$ curl http://localhost:8080/customer/cname/sazzad
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    24  100    24    0     0   2400      0 --:--:-- --:--:-- --:--:--  2400{"id":3,"name":"sazzad"}
+
+```
