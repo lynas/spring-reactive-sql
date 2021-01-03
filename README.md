@@ -1,17 +1,61 @@
-# Getting Started
+- This project demonostrate how to create a reactive web application that connects mysql/postgress sql db with reactive r2dbc driver
+- This project was tested with mysql 8 and postgres 13.1
 
-### Reference Documentation
+## How to Run
+- For mysql change db config in application.yml
+- For postgres comment/uncommnet follwoing in build.gradle
 
-For further reference, please consider the following sections:
+```
+    runtimeOnly("io.r2dbc:r2dbc-postgresql")
+    runtimeOnly("org.postgresql:postgresql")
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.4.1/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.4.1/gradle-plugin/reference/html/#build-image)
-* [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring/docs/5.3.2/spring-framework-reference/languages.html#coroutines)
+//    runtimeOnly("dev.miku:r2dbc-mysql")
+//    runtimeOnly("mysql:mysql-connector-java")
+```
 
-### Additional Links
+- For postgres comment/uncommnet follwoing in application.yml and update db config
 
-These additional references should also help you:
+```
+spring:
+  r2dbc:
+    url: "r2dbc:postgresql://localhost:5432/db_srcrud"
+    username: postgres
+    password: 123456
+    properties:
+      schema: schema_srcrud
+#spring:
+#  r2dbc:
+#    url: "r2dbc:pool:mysql://localhost:3306/rincewind"
+#    username: user
+#    password: password
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+```
 
+- Create table customer with two field 
+
+```
+id primary key auto increment
+name text
+```
+
+- Run application with following command
+
+`./gradlew bootRun`
+
+
+
+
+
+### Sample log output for making nio db call
+
+```
+2021-01-03 15:58:34.142 DEBUG 5096 --- [ctor-http-nio-2] o.s.w.r.r.m.a.ResponseBodyResultHandler  : [866d438c-3] 0..1 [com.lynas.demopostgress.Customer]
+2021-01-03 15:58:34.142 DEBUG 5096 --- [ctor-http-nio-2] io.r2dbc.pool.ConnectionPool             : Obtaining new connection from the driver
+2021-01-03 15:58:34.143 DEBUG 5096 --- [ctor-http-nio-2] o.s.r2dbc.core.DefaultDatabaseClient     : Executing SQL statement [select c.* from customer c where c.name=?]
+2021-01-03 15:58:34.143 DEBUG 5096 --- [ctor-http-nio-2] dev.miku.r2dbc.mysql.MySqlConnection     : Create a parametrized statement provided by text query
+2021-01-03 15:58:34.143 DEBUG 5096 --- [ctor-http-nio-2] d.m.r.mysql.client.ReactorNettyClient    : Request: TextQueryMessage{sqlParts=REDACTED, values=REDACTED}
+2021-01-03 15:58:34.144 DEBUG 5096 --- [actor-tcp-nio-2] d.m.r.mysql.client.MessageDuplexCodec    : Decode context change to DecodeContext-Result
+2021-01-03 15:58:34.144 DEBUG 5096 --- [actor-tcp-nio-2] d.m.r.m.m.server.MetadataDecodeContext   : Respond a metadata bundle by filled-up
+2021-01-03 15:58:34.144 DEBUG 5096 --- [actor-tcp-nio-2] d.m.r.mysql.client.ReactorNettyClient    : Response: SyntheticMetadataMessage{completed=false, messages=[DefinitionMetadataMessage{database='rincewind', table='c' (origin:'customer'), column='id' (origin:'id'), collationId=63, size=20, type=8, definitions=4203, decimals=0}, DefinitionMetadataMessage{database='rincewind', table='c' (origin:'customer'), column='name' (origin:'name'), collationId=45, size=262140, type=252, definitions=10, decimals=0}], eof=null}
+2021-01-03 15:58:34.144 DEBUG 5096 --- [actor-tcp-nio-2] d.m.r.mysql.client.ReactorNettyClient    : Response: RowMessage(encoded)
+```
