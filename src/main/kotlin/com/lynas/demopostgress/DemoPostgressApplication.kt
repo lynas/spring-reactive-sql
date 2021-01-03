@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
     runApplication<DemoPostgressApplication>(*args)
 }
 
-@Table("customer")
+@Table
 data class Customer(
     @Id
     val id: Long,
